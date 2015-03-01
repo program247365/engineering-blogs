@@ -27,3 +27,5 @@
 - https://engineering.groupon.com/
 - http://dev.hubspot.com/blog
 - http://code.hootsuite.com/
+- http://www.buzzfeed.com/techblog
+- https://medium.com/medium-eng
