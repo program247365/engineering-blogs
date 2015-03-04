@@ -1,3 +1,10 @@
+## Todo
+
+- Use Hapi to provide backend API (blogs/all, blogs/{blogId}, etc)
+- Use efficient rss parser (like https://www.npmjs.com/package/ortoo-feedparser ?), and grab rss feeds on interval
+- Cache feeds, in SPA, and display nicely in chrono order
+
+## Interesting Feeds
 - http://eng.joingrouper.com
 - http://eng.rightscale.com
 - https://engineering.linkedin.com/blog
