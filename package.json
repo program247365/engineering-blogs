@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/program247365/engineering-blogs",
   "dependencies": {
+    "feed-read": "0.0.1",
     "hapi": "^8.2.0",
     "hapi-swagger": "^0.6.6",
-    "ortoo-feedparser": "^0.11.0",
     "request": "^2.53.0"
   },
   "devDependencies": {
