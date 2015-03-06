@@ -1,3 +1,6 @@
+
+var blogs = require('./controllers');
+
 module.exports = [
     {
         method: 'GET',
@@ -6,8 +9,6 @@ module.exports = [
             description: 'Returns list of all blogs.',
             tags: ['api']
         },
-        handler: function (request, reply) {
-            reply("Got here man.");
-        }
+        handler: blogs.getAll
     }
 ]
