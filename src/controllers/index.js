@@ -9,6 +9,7 @@ function blogs () {
   var articles;
 }
 
+//TODO: Pull this out into database, obviously
 var sites = [
    'http://eng.joingrouper.com', //good
   //'http://eng.rightscale.com', //just hangs, I'm assuming can never find feed?
