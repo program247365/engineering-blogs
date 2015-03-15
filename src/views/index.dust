@@ -1,0 +1,7 @@
+{#err}
+  {err}
+{/err}
+<h1>WHAT</h1>
+{#articles}
+  {title}<br>
+{/articles}

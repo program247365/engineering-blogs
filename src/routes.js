@@ -1,7 +1,14 @@
-
 var blogs = require('./controllers');
 
 module.exports = [
+    {
+        method: 'GET',
+        path: '/',
+        config: {
+            description: 'Main page.',
+        },
+        handler: blogs.show
+    },
     {
         method: 'GET',
         path: '/blogs/all',

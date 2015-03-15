@@ -11,6 +11,17 @@ swaggerOptions = {
     apiVersion: pack.version
 };
 
+server.views({
+    engines: {
+      html: require('hapi-dust')
+    },
+    compileMode: 'async', // global setting
+    relativeTo: __dirname,
+    path: './views',
+    layoutPath: './views/layout',
+    //helpersPath: './views/helpers'
+});
+
 server.register({
     register: require('hapi-swagger'),
     options: swaggerOptions
@@ -19,27 +30,6 @@ server.register({
         server.log(['error'], 'hapi-swagger load error: ' + err)
     }else{
         server.log(['start'], 'hapi-swagger interface loaded')
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/',
-    config: {
-        description: 'Base Api',
-        notes: 'Returns Hello World.',
-        tags: ['api'],
-        plugins: {
-            'hapi-swagger': {
-                responseMessages: [
-                    { code: 400, message: 'Bad Request' },
-                    { code: 500, message: 'Internal Server Error'}
-                ]
-            }
-        }
-    },
-    handler: function (request, reply) {
-        reply('Hello, world!');
     }
 });
 

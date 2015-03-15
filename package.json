@@ -18,9 +18,13 @@
   "homepage": "https://github.com/program247365/engineering-blogs",
   "dependencies": {
     "async": "^0.9.0",
+    "dust": "^0.3.0",
+    "dustjs-linkedin": "^2.6.1",
     "feed-read": "0.0.1",
     "find-rss": "^1.5.10",
+    "handlebars": "^3.0.0",
     "hapi": "^8.2.0",
+    "hapi-dust": "^1.0.0",
     "hapi-swagger": "^0.6.6",
     "lodash": "^3.4.0",
     "metafetch": "^1.0.6",

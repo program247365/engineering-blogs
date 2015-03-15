@@ -4,6 +4,7 @@ var _ = require('lodash');
 var finder  = require('find-rss');
 var async = require('async');
 var url = require('url'); //had to add this
+var dust = require('dustjs-linkedin');
 
 function blogs () {
   var articles;
@@ -52,7 +53,7 @@ blogs.getAll = function (req, reply) {
         finder(site, function(error, feeds, body) {
           // If error is an error, then invoke the callback
           // with the error. this is propogated to async's 3rd argument.
-          //TODO: implement logging lib, and log errors
+          //TODO: implement logging lib, and log errors, such as https://github.com/hapijs/good
           if(_.isError(error)) return callback(error);
           //TODO: logging if errors
           if(_.isEmpty(feeds)) return callback(null, []);
@@ -89,6 +90,23 @@ blogs.getAll = function (req, reply) {
   return {
     getAll: blogs.getAll
   };
+};
+
+blogs.show = function (req, reply) {
+  //var data = blogs.getAll();
+
+  reply(data);
+
+  return {
+    show: blogs.show
+  };
+  // dust.helpers.hello = function tagHandler(chunk, context, bodies, params) {
+  //   return chunk.map(function(asyncChunk) {
+  //       setTimeout(function() {
+  //           chunk.end('Hello ' + params.name + '!');
+  //       }, 1000);
+  //   })
+  // };
 };
 
 module.exports = blogs;
