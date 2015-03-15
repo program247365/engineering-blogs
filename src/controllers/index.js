@@ -1,77 +1,93 @@
 var feed = require('feed-read');
 var request = require('request');
-
-module.exports = blogs;
+var _ = require('lodash');
+var finder  = require('find-rss');
+var async = require('async');
+var url = require('url'); //had to add this
 
 function blogs () {
-
+  var articles;
 }
 
+var sites = [
+   'http://eng.joingrouper.com', //good
+  //'http://eng.rightscale.com', //just hangs, I'm assuming can never find feed?
+   'https://engineering.linkedin.com/blog', //good
+   'http://blog.stackoverflow.com/', //good
+   'http://googledevelopers.blogspot.com/', //good
+   'http://yahooeng.tumblr.com/', //good
+   'http://code.flickr.net/', //good
+   'http://engineering.pinterest.com/', //good
+   'https://blog.twitter.com/engineering', //good
+  // 'http://blog.42floors.com/', // no rss feed exists in html :(
+   'http://engineering.flipboard.com/', //good
+   'http://codeascraft.com/', //good
+   'http://engineering.foursquare.com/', //good
+  // 'http://instagram-engineering.tumblr.com/', //hangs? http://instagram-engineering.tumblr.com/rss
+  // 'https://code.facebook.com/posts/', //returns null; must provide some specifics in request header and x-header
+   'https://labs.spotify.com/', //good
+  // 'http://engineering.voxer.com/', //returns null; go check what error is
+   'http://www.ebaytechblog.com/', //good
+   'http://tech.gilt.com/', //good
+   'http://engineering.heroku.com/', //good
+   'http://www.thumbtack.com/engineering/', //good
+   'http://engineering.silk.co/', //good
+   'https://www.paypal-engineering.com/', //good
+   'http://code.zynga.com/', //good
+   'http://blog.risingstack.com/', //good
+  // 'https://tech.blog.box.com/', // errors with '{ [Error: unable to verify the first certificate] code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' }'
+  // 'https://engineering.groupon.com/', // times out?
+   'http://dev.hubspot.com/blog', //good
+   'http://code.hootsuite.com/', //good
+  // 'http://www.buzzfeed.com/techblog', // returns null; go check what error is
+   'https://medium.com/medium-eng', //good
+   'http://code.mixpanel.com' //good
+];
+
 blogs.getAll = function (req, reply) {
-  //TODO: Handle facebook tech blog which probably requires an accept header properly set (see previous commit with other lib)
-  //TODO: With website URL, get the proper RSS feed from it.
-  //TODO: Store all proper web/rss feeds somewhere
-  //TODO: periodically loop through them and get new articles, and store them
-  //TODO: Clean up API instead of one monolithic endpoint
-  feed("http://yahooeng.tumblr.com/rss", function(err, articles) {
-  if (err) throw err;
-      var myarticles = [];
-      articles.forEach(function (article){
-        //console.log('%s - %s (%s)', article.date, article.title, article.link);
-        myarticles.push(article.title);
+  // TODO: Add in request timeout
+    async.map(sites,
+      function(site, callback) {
+        finder(site, function(error, feeds, body) {
+          // If error is an error, then invoke the callback
+          // with the error. this is propogated to async's 3rd argument.
+          //TODO: implement logging lib, and log errors
+          if(_.isError(error)) return callback(error);
+          //TODO: logging if errors
+          if(_.isEmpty(feeds)) return callback(null, []);
+          // What happens if href is not /atom.xml or /rss/ or /feed.xml?
+          var first = _(_.first(feeds).href);
+          var fullUrl;
+          //TODO: A better test: contains('http(s)://'), if not, then take rel url and concatenate site url and return
+          // this is janky, and error-prone the way it's currently done
+           if(!first.includes('/atom.xml') || !first.includes('/rss/') || !first.includes('/feed.xml')){
+              fullUrl = _.first(feeds).url;
+           } else {
+              return callback(null, []);
+           }
+
+          feed(fullUrl, function(error, articles) {
+            //TODO: logging if errors
+            if(_.isError(error)) return callback(error);
+            var results = _.map(articles, function(article) {
+              return { title: article.title, link: article.link, published: article.published, author: article.author, site: article.feed.link };
+            });
+            // Invoke callback with the completed results
+            callback(null, results);
+          });
+        });
+      },
+      function(err, results) {
+        var flattened = _.flatten(results); //flatten array
+        var sorted = _.sortBy(flattened, "published"); //sort by published
+        var revSorted = _(sorted).reverse().value(); // descending order, newest first
+        //TODO: logging if errors
+        reply(err, revSorted);
       });
-      reply(myarticles);
-  // Each article has the following properties:
-  //
-  //   * "title"     - The article title (String).
-  //   * "author"    - The author's name (String).
-  //   * "link"      - The original article link (String).
-  //   * "content"   - The HTML content of the article (String).
-  //   * "published" - The date that the article was published (Date).
-  //   * "feed"      - {name, source, link}
-  //
-  });
+
+  return {
+    getAll: blogs.getAll
+  };
 };
 
-function parseAtom (err, articles) {
-  if (err) throw err;
-  console.log("Atom: ", articles);
-  // Each article has the following properties:
-  //
-  //   * "title"     - The article title (String).
-  //   * "author"    - The author's name (String).
-  //   * "link"      - The original article link (String).
-  //   * "content"   - The HTML content of the article (String).
-  //   * "published" - The date that the article was published (Date).
-  //   * "feed"      - {name, source, link}
-  //
-};
-
-function parseRSS (err, articles) {
-  if (err) throw err;
-  console.log("RSS: ", articles);
-  // Each article has the following properties:
-  //
-  //   * "title"     - The article title (String).
-  //   * "author"    - The author's name (String).
-  //   * "link"      - The original article link (String).
-  //   * "content"   - The HTML content of the article (String).
-  //   * "published" - The date that the article was published (Date).
-  //   * "feed"      - {name, source, link}
-  //
-};
-
-// function callback (error, meta, articles){
-//   if (error) {
-//     //TODO: figure out why this is erroring, no matter what the feed. Momemntjs error initially but is that really it?
-//     //console.error(error);
-//   } else {
-//     console.log('Feed info');
-//     console.log('%s - %s - %s', meta.title, meta.link, meta.xmlurl);
-//     console.log('Articles');
-//     articles.forEach(function (article){
-//       //console.log('%s - %s (%s)', article.date, article.title, article.link);
-//       console.log(article.title);
-//     });
-//   }
-// }
+module.exports = blogs;
