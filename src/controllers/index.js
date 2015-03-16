@@ -29,7 +29,7 @@ var sites = [
    'https://labs.spotify.com/', //good
   // 'http://engineering.voxer.com/', //returns null; go check what error is
    'http://www.ebaytechblog.com/', //good
-   'http://tech.gilt.com/', //good
+   //'http://tech.gilt.com/', //good
    'http://engineering.heroku.com/', //good
    'http://www.thumbtack.com/engineering/', //good
    'http://engineering.silk.co/', //good
@@ -71,7 +71,7 @@ blogs.getAll = function (req, reply) {
             //TODO: logging if errors
             if(_.isError(error)) return callback(error);
             var results = _.map(articles, function(article) {
-              return { title: article.title, link: article.link, published: article.published, author: article.author, site: article.feed.link };
+              return {title: article.title, link: article.link, published: article.published, author: article.author, site: article.feed.link};
             });
             // Invoke callback with the completed results
             callback(null, results);

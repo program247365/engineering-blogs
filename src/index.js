@@ -1,4 +1,6 @@
 var Hapi = require('hapi');
+var wreck = require('wreck');
+var Handlebars = require('handlebars');
 
 var server = new Hapi.Server();
 server.connection({ port: 8888 });
@@ -22,24 +24,32 @@ server.register({
     }
 });
 
+server.views({
+    engines: {
+        html: require('handlebars')
+    },
+    relativeTo: __dirname,
+    path: './views',
+    //layoutPath: './views/layout',
+    //helpersPath: './views/helpers'
+});
+
 server.route({
     method: 'GET',
     path: '/',
     config: {
-        description: 'Base Api',
-        notes: 'Returns Hello World.',
-        tags: ['api'],
-        plugins: {
-            'hapi-swagger': {
-                responseMessages: [
-                    { code: 400, message: 'Bad Request' },
-                    { code: 500, message: 'Internal Server Error'}
-                ]
-            }
-        }
+        description: 'Returns all results in one page.'
     },
     handler: function (request, reply) {
-        reply('Hello, world!');
+      var url = server.info.uri + '/blogs/all';
+
+      wreck.get(url, function (err, res, payload) {
+        if(payload){
+          reply.view('index', {payload: payload});
+        } else {
+          reply.view('index', err);
+        }
+      });
     }
 });
 
