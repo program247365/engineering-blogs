@@ -45,6 +45,7 @@ server.route({
 
       wreck.get(url, function (err, res, payload) {
         if(payload){
+          payload = JSON.parse(payload);
           reply.view('index', {payload: payload});
         } else {
           reply.view('index', err);

@@ -2,14 +2,27 @@
   <head>
     <title>Engineering Blogs</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <style>
+      ul {
+        list-style: none;
+      }
+      li {
+        padding: 0 0 5px 0;
+      }
+      li a {
+        text-underline: none;
+      }
+      li a:hover {
+        text-decoration: underline;
+      }
+    </style>
   <head>
   <body>
     <ul>
-          {{#each .}}
-            {{this}}
-            {{title}}<br>
-            {{author}}
-          {{/each}}
+      {{#each payload}}
+        <li><a href="{{link}}">{{title}}</a> by {{author}} on {{published}} <br>
+        {{feed.link}}</li>
+      {{/each}}
     </ul>
   </body>
 </html>
