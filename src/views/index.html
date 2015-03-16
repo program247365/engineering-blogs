@@ -1,28 +1,85 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Coda' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <title>Engineering Blogs</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
       ul {
         list-style: none;
+        border-right: 1px #e7e7e7 solid;
+        border-left: 1px #e7e7e7 solid;
+        border-bottom: 1px #e7e7e7 solid;
+        padding: 0;
       }
       li {
-        padding: 0 0 5px 0;
+        padding: 15px 10px 15px 10px;
+        border-top: 1px #e7e7e7 solid;
+      }
+      li:hover {
+        padding: 15px 10px 15px 10px;
+        background: #f1f1f1;
+        color: #000;
       }
       li a {
-        text-underline: none;
+        color: #666666;
+        text-decoration: none;
+        font-family: 'Coda', cursive;
       }
       li a:hover {
+        background: #f1f1f1;
         text-decoration: underline;
+      }
+      li a:active {
+        background: #f1f1f1;
+      }
+      header {
+        color: #000;
+        background: #fff;
+        font-family: 'Source Sans Pro', sans-serif;
+        bottom: auto;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+        padding: 0 15px;
+        top: 0;
+        background: white;
+        position: fixed;
+        height: 54px;
+        left: 0;
+        position: fixed;
+        right: 0;
+      }
+      /* Small devices (tablets, 768px and up) */
+      @media (min-width: @screen-sm-min) {
+        header {font-size: 10em;}
+        li a {font-size: 9em;}
+      }
+
+      /* Medium devices (desktops, 992px and up) */
+      @media (min-width: @screen-md-min) {
+        header {font-size: 3em;}
+        li a {font-size: 2em;}
+      }
+
+      /* Large devices (large desktops, 1200px and up) */
+      @media (min-width: @screen-lg-min) {
+        header {font-size: 3em;}
+        li a {font-size: 2em;}
       }
     </style>
   <head>
   <body>
-    <ul>
-      {{#each payload}}
-        <li><a href="{{link}}">{{title}}</a> by {{author}} on {{published}} <br>
-        {{feed.link}}</li>
-      {{/each}}
-    </ul>
+    <div class="container-fluid">
+      <header>
+        Engineering Blogs
+      </header>
+      <ul>
+        {{#each payload}}
+          <li><a href="{{link}}">{{title}}</a> by {{author}} on {{published}} <br>
+          {{feed.link}}</li>
+        {{/each}}
+      </ul>
+    </div>
   </body>
 </html>
