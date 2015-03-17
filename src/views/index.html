@@ -13,10 +13,15 @@
         border-left: 1px #e7e7e7 solid;
         border-bottom: 1px #e7e7e7 solid;
         padding: 0;
+        border-top: 1px #e7e7e7 solid;
+        border-radius: 4px;
       }
       li {
         padding: 15px 10px 15px 10px;
         border-top: 1px #e7e7e7 solid;
+      }
+      li:first-child {
+        border-top: none;
       }
       li:hover {
         padding: 15px 10px 15px 10px;
@@ -24,9 +29,14 @@
         color: #000;
       }
       li a {
-        color: #666666;
+        color: #2183c1;
         text-decoration: none;
         font-family: 'Coda', cursive;
+        font-weight: 700px;
+        line-height: 100%;
+        display: block;
+        width: 100%;
+        height: 100%;
       }
       li a:hover {
         background: #f1f1f1;
@@ -36,35 +46,37 @@
         background: #f1f1f1;
       }
       header {
-        color: #000;
-        background: #fff;
+        color: #5fb61f;
+        text-align: center;
+        background: #f1f1f1;
         font-family: 'Source Sans Pro', sans-serif;
         bottom: auto;
         box-shadow: 0 1px 0 rgba(0,0,0,0.15);
         padding: 0 15px;
         top: 0;
-        background: white;
         position: fixed;
         height: 54px;
         left: 0;
         position: fixed;
         right: 0;
       }
-      /* Small devices (tablets, 768px and up) */
-      @media (min-width: @screen-sm-min) {
-        header {font-size: 10em;}
-        li a {font-size: 9em;}
+      /* Small devices */
+      @media (min-device-width: 320px) {
+        header {font-size: 2.25em;}
+        .container-fluid {padding: 0;}
+        li a {font-size: 2em;}
       }
 
       /* Medium devices (desktops, 992px and up) */
-      @media (min-width: @screen-md-min) {
+      @media (min-device-width: 992px) {
         header {font-size: 3em;}
         li a {font-size: 2em;}
       }
 
       /* Large devices (large desktops, 1200px and up) */
-      @media (min-width: @screen-lg-min) {
+      @media (min-device-width: 1200px) {
         header {font-size: 3em;}
+        ul {margin-top: 65px;}
         li a {font-size: 2em;}
       }
     </style>
