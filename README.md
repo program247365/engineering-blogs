@@ -1,9 +1,10 @@
 ## Todo
 
-- -Use Hapi to provide backend API (blogs/all, blogs/{blogId}, etc)-
-- -Use efficient rss parser-
-- -Display nicely in chrono order-
-- Break out API, annotate with swagger-ui
+- ~~Use Hapi to provide backend API (blogs/all, blogs/{blogId}, etc)~~
+- ~~annotate with swagger-ui~~
+- ~~Use efficient rss parser~~
+- ~~Display nicely in chrono order~~
+- Break out API better(blogs/{blogId}, blogs/{blogId}/findFeed)
 - Grab rss feeds on interval
 - Caching in backend
 - MongoDB usage for backend
