@@ -1,8 +1,14 @@
 ## Todo
 
-- Use Hapi to provide backend API (blogs/all, blogs/{blogId}, etc)
-- Use efficient rss parser (like https://www.npmjs.com/package/ortoo-feedparser ?), and grab rss feeds on interval
-- Cache feeds, in SPA, and display nicely in chrono order
+- -Use Hapi to provide backend API (blogs/all, blogs/{blogId}, etc)-
+- -Use efficient rss parser-
+- -Display nicely in chrono order-
+- Break out API, annotate with swagger-ui
+- Grab rss feeds on interval
+- Caching in backend
+- MongoDB usage for backend
+- Paging in UI
+- Suggest a site feature
 
 ## Interesting Feeds
 - http://eng.joingrouper.com
