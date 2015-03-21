@@ -47,7 +47,14 @@ var sites = [
 blogs.list = function (req, reply) {
     reply(sites);
     return {
-      getNames: blogs.list
+      list: blogs.list
+    };
+};
+
+blogs.getSlice = function (req, reply) {
+    reply('Not implemented yet.');
+    return {
+      getSlice: blogs.getSlice
     };
 };
 
