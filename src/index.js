@@ -9,7 +9,6 @@ server.route(routes);
 
 var pack = require('../package'),
 swaggerOptions = {
-    basePath: 'http://localhost:8000',
     apiVersion: pack.version
 };
 

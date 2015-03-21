@@ -6,7 +6,6 @@ var async = require('async');
 var url = require('url'); //had to add this
 
 function blogs () {
-  var articles;
 }
 
 //TODO: Pull this out into database, obviously
@@ -44,6 +43,13 @@ var sites = [
    'https://medium.com/medium-eng', //good
    'http://code.mixpanel.com' //good
 ];
+
+blogs.list = function (req, reply) {
+    reply(sites);
+    return {
+      getNames: blogs.list
+    };
+};
 
 blogs.getAll = function (req, reply) {
   // TODO: Add in request timeout
