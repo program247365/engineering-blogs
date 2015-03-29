@@ -1,3 +1,4 @@
+var logger = require('./utils/logger');
 var Hapi = require('hapi');
 var wreck = require('wreck');
 var Handlebars = require('handlebars');
@@ -17,8 +18,10 @@ server.register({
     options: swaggerOptions
 }, function (err) {
     if (err) {
+        logger.error("Error in registering swagger: " + err);
         server.log(['error'], 'hapi-swagger load error: ' + err)
     }else{
+        logger.log('hapi-swagger interface loaded.');
         server.log(['start'], 'hapi-swagger interface loaded')
     }
 });
@@ -54,5 +57,6 @@ server.route({
 });
 
 server.start(function () {
+    logger.log('Server running at:', server.info.uri);
     console.log('Server running at:', server.info.uri);
 });
