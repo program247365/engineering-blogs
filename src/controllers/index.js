@@ -11,9 +11,9 @@ function blogs () {
 
 //TODO: Pull this out into database, obviously
 var sites = [
-   'https://nodesource.com/blog/', //no feed at all :(
+   //'https://nodesource.com/blog/', //no feed at all :(
    'http://eng.joingrouper.com', //good
-   'http://eng.rightscale.com', //just hangs, I'm assuming can never find feed?
+   //'http://eng.rightscale.com', //just hangs, I'm assuming can never find feed?
    'https://engineering.linkedin.com/blog', //good
    'http://blog.stackoverflow.com/', //good
    'http://googledevelopers.blogspot.com/', //good
@@ -21,27 +21,27 @@ var sites = [
    'http://code.flickr.net/', //good
    'http://engineering.pinterest.com/', //good
    'https://blog.twitter.com/engineering', //good
-   'http://blog.42floors.com/', // no rss feed exists in html :(
+   //'http://blog.42floors.com/', // no rss feed exists in html :(
    'http://engineering.flipboard.com/', //good
    'http://codeascraft.com/', //good
    'http://engineering.foursquare.com/', //good
-   'http://instagram-engineering.tumblr.com/', //hangs? http://instagram-engineering.tumblr.com/rss
-   'https://code.facebook.com/posts/', //returns null; must provide some specifics in request header and x-header
+   //'http://instagram-engineering.tumblr.com/', //hangs? http://instagram-engineering.tumblr.com/rss
+   //'https://code.facebook.com/posts/', //returns null; must provide some specifics in request header and x-header
    'https://labs.spotify.com/', //good
-   'http://engineering.voxer.com/', //returns null; go check what error is
+   //'http://engineering.voxer.com/', //returns null; go check what error is
    'http://www.ebaytechblog.com/', //good
    'http://tech.gilt.com/', //good
    'http://engineering.heroku.com/', //good
    'http://www.thumbtack.com/engineering/', //good
    'http://engineering.silk.co/', //good
    'https://www.paypal-engineering.com/', //good
-   'https://zynga.com/blogs/engineering', //good
+   //'https://zynga.com/blogs/engineering', //they recently updated their blog, and removed RSS. :(
    'http://blog.risingstack.com/', //good
    //'https://tech.blog.box.com/', // errors with '{ [Error: unable to verify the first certificate] code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' }'
-   'https://engineering.groupon.com/', // times out?
+   //'https://engineering.groupon.com/', // times out?
    'http://dev.hubspot.com/blog', //good
    'http://code.hootsuite.com/', //good
-   'http://www.buzzfeed.com/techblog', // returns null; go check what error is
+   //'http://www.buzzfeed.com/techblog', // returns null; go check what error is
    'https://medium.com/medium-eng', //good
    'http://code.mixpanel.com' //good
 ];
