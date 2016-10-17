@@ -52,3 +52,7 @@ With that I wanted to aggregate them into a nice site, to browse these posts to 
 - http://www.buzzfeed.com/techblog
 - https://medium.com/medium-eng
 - http://code.mixpanel.com
+- https://makers.airware.com/
+- https://javascript.tumblr.com/
+- http://eng.wealthfront.com/
+- http://tech.trivago.com/

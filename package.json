@@ -7,6 +7,8 @@
     "node": ">=0.10.3"
   },
   "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "test": "test"
   },
   "repository": {

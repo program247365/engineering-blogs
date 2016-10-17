@@ -11,15 +11,19 @@ function blogs () {
 
 //TODO: Pull this out into database, obviously
 var sites = [
-   //'https://nodesource.com/blog/', //no feed at all :(
+    // 'http://tech.trivago.com/', //FIXME code assumes link is always in the <head>, on sites like this one it is not
+    //'https://makers.airware.com/', //Error in finding feed for https://makers.airware.com/: Error: NotFoundEncodingError
+    'https://javascript.tumblr.com/', //good
+    'http://eng.wealthfront.com/', //good
+    'https://nodesource.com/blog/', //good
    'http://eng.joingrouper.com', //good
    //'http://eng.rightscale.com', //just hangs, I'm assuming can never find feed?
-   'https://engineering.linkedin.com/blog', //good
+   // 'https://engineering.linkedin.com/blog', //Error in feed for https://engineering.linkedin.com/blog. Is empty: null
    'http://blog.stackoverflow.com/', //good
    'http://googledevelopers.blogspot.com/', //good
    'http://yahooeng.tumblr.com/', //good
    'http://code.flickr.net/', //good
-   'http://engineering.pinterest.com/', //good
+   //'http://engineering.pinterest.com/', //good
    'https://blog.twitter.com/engineering', //good
    //'http://blog.42floors.com/', // no rss feed exists in html :(
    'http://engineering.flipboard.com/', //good
@@ -39,7 +43,7 @@ var sites = [
    'http://blog.risingstack.com/', //good
    //'https://tech.blog.box.com/', // errors with '{ [Error: unable to verify the first certificate] code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' }'
    //'https://engineering.groupon.com/', // times out?
-   'http://dev.hubspot.com/blog', //good
+   //'https://product.hubspot.com/blog', //url comes out - https://product.hubspot.com//product.hubspot.com/blog/rss.xml FIXME
    'http://code.hootsuite.com/', //good
    //'http://www.buzzfeed.com/techblog', // returns null; go check what error is
    'https://medium.com/medium-eng', //good
@@ -64,6 +68,7 @@ blogs.getAll = function (req, reply) {
   // TODO: Add in request timeout
     async.map(sites,
       function(site, callback) {
+        debugger;
         finder(site, function(error, feeds, body) {
           // If error is an error, then invoke the callback
           // with the error. this is propogated to async's 3rd argument.
@@ -82,7 +87,7 @@ blogs.getAll = function (req, reply) {
           var fullUrl;
           //TODO: A better test: contains('http(s)://'), if not, then take rel url and concatenate site url and return
           // this is janky, and error-prone the way it's currently done
-           if(!first.includes('/atom.xml') || !first.includes('/rss/') || !first.includes('/feed.xml')){
+           if(!first.includes('/atom.xml') || !first.includes('/rss/') || !first.includes('/feed.xml') || !first.includes('/blog.rss')){
               fullUrl = _.first(feeds).url;
            } else {
               return callback(null, []);
@@ -91,7 +96,7 @@ blogs.getAll = function (req, reply) {
           feed(fullUrl, function(error, articles) {
             if(_.isError(error))
             {
-              logger.error("Error with parsing feed: " + error);
+              logger.error(fullUrl + ": Error with parsing feed: " + error);
               return callback(error);
             }
             var results = _.map(articles, function(article) {
